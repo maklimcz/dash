@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
 
     QSize size = dash.primaryScreen()->size();
     QPoint pos = dash.primaryScreen()->geometry().topLeft();
+    QMargins margins;
     bool fullscreen = true;
 
     QSettings settings;
@@ -35,6 +36,10 @@ int main(int argc, char *argv[])
                 pos = settings.value("pos").toPoint();
             fullscreen = false;
         }
+        margins.setLeft(settings.value("margin-left").toInt());
+        margins.setTop(settings.value("margin-top").toInt());
+        margins.setRight(settings.value("margin-right").toInt());
+        margins.setBottom(settings.value("margin-bottom").toInt());
     }
 
     QPixmap pixmap(QPixmap(":/splash.png").scaledToHeight(size.height() / 2));
@@ -44,7 +49,7 @@ int main(int argc, char *argv[])
     splash.show();
     dash.processEvents();
 
-    MainWindow window(QRect(pos, size));
+    MainWindow window(QRect(pos, size), margins);
     window.setWindowIcon(QIcon(":/logo.png"));
     window.setWindowFlags(Qt::FramelessWindowHint);
     if (fullscreen)

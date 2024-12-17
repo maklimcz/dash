@@ -203,7 +203,7 @@ QWidget *Dash::power_control() const
     return widget;
 }
 
-MainWindow::MainWindow(QRect geometry)
+MainWindow::MainWindow(QRect geometry, QMargins margins)
     : QMainWindow()
     , arbiter(this->init(geometry))
     , stack(new QStackedWidget())
@@ -212,7 +212,7 @@ MainWindow::MainWindow(QRect geometry)
 
     auto frame = new QFrame();
     auto layout = new QVBoxLayout(frame);
-    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setContentsMargins(margins);
     layout->setSpacing(0);
 
     layout->addWidget(this->stack);
